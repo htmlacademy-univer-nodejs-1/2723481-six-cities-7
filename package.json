@@ -11,7 +11,7 @@
   "scripts": {
     "start": "npm run build && node ./dist/main.js",
     "start:dev": "npm run build && node ./dist/main.js | pino-pretty --colorize --translateTime SYS:standard",
-    "test": "npm run build && node --test tests/architecture.test.mjs tests/database.test.mjs tests/services.test.mjs",
+    "test": "npm run build && node --test tests/architecture.test.mjs tests/database.test.mjs tests/services.test.mjs tests/http.test.mjs",
     "cli": "npm run build && node ./dist/cli.js",
     "build": "npm run clean && npm run compile",
     "lint": "eslint src/ --ext .ts",
@@ -22,12 +22,18 @@
   },
   "dependencies": {
     "chalk": "5.3.0",
+    "class-transformer": "0.5.1",
     "convict": "6.2.5",
     "convict-format-with-validator": "6.2.0",
     "dotenv": "16.6.1",
+    "express": "4.22.3",
+    "express-async-handler": "1.2.0",
     "got": "13.0.0",
+    "http-status-codes": "2.3.0",
     "inversify": "6.0.2",
+    "jsonwebtoken": "9.0.3",
     "mongoose": "7.8.13",
+    "multer": "2.5.0",
     "pino": "9.14.0",
     "reflect-metadata": "0.2.2",
     "tslib": "2.8.1"
@@ -35,6 +41,9 @@
   "devDependencies": {
     "@types/convict": "6.1.6",
     "@types/convict-format-with-validator": "6.0.6",
+    "@types/express": "4.17.25",
+    "@types/jsonwebtoken": "9.0.10",
+    "@types/multer": "2.3.0",
     "@types/node": "18.16.3",
     "@typescript-eslint/eslint-plugin": "5.46.0",
     "@typescript-eslint/parser": "5.46.0",

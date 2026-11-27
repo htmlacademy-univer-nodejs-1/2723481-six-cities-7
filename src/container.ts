@@ -17,6 +17,12 @@ import {OfferService} from './shared/modules/offer/offer-service.interface.js';
 import {CommentModel} from './shared/modules/comment/comment.entity.js';
 import {CommentService} from './shared/modules/comment/comment-service.interface.js';
 import {DefaultCommentService} from './shared/modules/comment/default-comment.service.js';
+import {ControllerInterface} from './shared/libs/http/controller.interface.js';
+import {ExceptionFilter} from './shared/libs/http/exception-filter.js';
+import {AuthService} from './shared/modules/user/auth.service.js';
+import {UserController} from './shared/modules/user/user.controller.js';
+import {OfferController} from './shared/modules/offer/offer.controller.js';
+import {FavoriteController} from './shared/modules/favorite/favorite.controller.js';
 
 export const container = new Container();
 
@@ -30,3 +36,8 @@ container.bind(Component.OfferModel).toConstantValue(OfferModel);
 container.bind<OfferService>(Component.OfferService).to(DefaultOfferService).inSingletonScope();
 container.bind(Component.CommentModel).toConstantValue(CommentModel);
 container.bind<CommentService>(Component.CommentService).to(DefaultCommentService).inSingletonScope();
+container.bind(Component.ExceptionFilter).to(ExceptionFilter).inSingletonScope();
+container.bind(Component.AuthService).to(AuthService).inSingletonScope();
+container.bind<ControllerInterface>(Component.UserController).to(UserController).inSingletonScope();
+container.bind<ControllerInterface>(Component.OfferController).to(OfferController).inSingletonScope();
+container.bind<ControllerInterface>(Component.FavoriteController).to(FavoriteController).inSingletonScope();
