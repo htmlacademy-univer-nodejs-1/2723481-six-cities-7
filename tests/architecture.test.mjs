@@ -26,7 +26,14 @@ function runApplication(settings = {}, dotenv) {
     const script = `
       import {container} from ${JSON.stringify(containerUrl)};
       import {Component} from ${JSON.stringify(componentUrl)};
+      import {Application} from ${JSON.stringify(new URL('../dist/application/application.js', import.meta.url).href)};
       container.rebind(Component.DatabaseClient).toConstantValue({connect: async () => {}, disconnect: async () => {}});
+      const init = Application.prototype.init;
+      Application.prototype.init = async function () {
+        const server = await init.call(this);
+        server.unref();
+        return server;
+      };
       await import(${JSON.stringify(new URL('../dist/main.js', import.meta.url).href)});
     `;
     const result = spawnSync(process.execPath, ['--input-type=module', '-e', script], {
